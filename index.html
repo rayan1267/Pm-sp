@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b49">
+<title>PMSP APROVA | Área do aluno</title>
+<style>
+:root{--navy:#102b49;--navy2:#173c61;--blue:#2f6f9f;--gold:#e2b95d;--bg:#f2f5f8;--ink:#172536;--muted:#667789;--line:#dce4eb;--white:#fff;--green:#23845b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,var(--navy),var(--navy2));color:white;padding:20px max(18px,calc((100vw - 1100px)/2));}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:900;letter-spacing:1.4px;font-size:20px}.brand span{color:var(--gold)}.tag{font-size:12px;border:1px solid #6b8298;border-radius:99px;padding:5px 10px;color:#eaf1f7}
+.hero{padding:28px 0 18px;max-width:1100px;margin:auto}.hero h1{font-size:clamp(25px,5vw,38px);line-height:1.12;margin:0 0 9px}.hero p{color:#d5e1eb;margin:0;max-width:650px}
+.wrap{max-width:1100px;margin:22px auto;padding:0 16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:-2px}.stat,.panel,.subject,.day{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 3px 12px #102b4909}.stat small{color:var(--muted)}.stat strong{display:block;font-size:24px;color:var(--navy);margin-top:3px}
+.tabs{display:flex;gap:8px;overflow:auto;padding:5px 0 13px;margin-top:18px}.tab{border:1px solid var(--line);background:white;border-radius:999px;padding:9px 15px;white-space:nowrap;font-weight:650;color:var(--navy);cursor:pointer}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+h2{font-size:21px;color:var(--navy);margin:6px 0 12px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.subject{display:flex;gap:12px;align-items:flex-start}.ico{width:42px;height:42px;border-radius:12px;background:#eaf1f7;display:grid;place-items:center;font-size:21px;flex:none}.subject h3{margin:0;color:var(--navy);font-size:16px}.subject p{margin:3px 0 9px;color:var(--muted);font-size:13px}.btn{border:0;background:var(--navy);color:white;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}.btn.secondary{background:#eaf1f7;color:var(--navy)}.btn.gold{background:var(--gold);color:#192c40}.progress{height:9px;background:#e6edf2;border-radius:20px;overflow:hidden;margin:10px 0}.progress>i{display:block;height:100%;width:0;background:var(--green);border-radius:20px;transition:width .2s}
+.day{margin-bottom:10px}.dayhead{display:flex;justify-content:space-between;gap:8px;align-items:center}.day h3{margin:0;color:var(--navy)}label.task{display:flex;align-items:flex-start;gap:9px;margin:10px 0;color:#354657}input[type=checkbox]{accent-color:var(--green);width:18px;height:18px;margin-top:2px}
+.lesson{padding:14px;background:#f7f9fb;border:1px solid var(--line);border-radius:12px;margin:10px 0}.lesson h3{margin:0 0 5px;color:var(--navy)}.quizq{padding:14px;border:1px solid var(--line);border-radius:12px;margin:12px 0}.option{display:block;padding:8px;margin:6px 0;background:#f6f8fa;border-radius:8px;cursor:pointer}.feedback{font-weight:700;margin-top:8px}.good{color:var(--green)}.bad{color:#b64242}
+textarea{width:100%;min-height:125px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}select{padding:9px;border:1px solid var(--line);border-radius:9px;background:white}
+footer{max-width:1100px;margin:28px auto;padding:18px 16px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.hidden{display:none!important}.notice{background:#fff8e8;border:1px solid #f0dba8;padding:12px 14px;border-radius:12px;color:#614d20;font-size:13px;margin:14px 0}
+@media(max-width:650px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}.grid{grid-template-columns:1fr}.wrap{margin-top:15px}.hero{padding-top:22px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div class="brand">PMSP <span>APROVA</span></div><div class="tag">ÁREA DO ALUNO • PLANO 2H/DIA</div></div>
+ <div class="hero"><h1>Sua preparação começa aqui.</h1><p>Estude do zero, acompanhe seu ritmo e construa consistência rumo ao concurso da Polícia Militar de São Paulo.</p></div>
+</header>
+<main class="wrap">
+ <section class="stats">
+  <div class="stat"><small>Rotina diária</small><strong>2 horas</strong></div>
+  <div class="stat"><small>Dias planejados</small><strong>6 por semana</strong></div>
+  <div class="stat"><small>Tarefas concluídas</small><strong id="doneCount">0</strong></div>
+ </section>
+ <nav class="tabs" aria-label="Navegação">
+  <button class="tab active" data-tab="inicio">Início</button><button class="tab" data-tab="cronograma">Cronograma</button><button class="tab" data-tab="materias">Matérias</button><button class="tab" data-tab="simulado">Simulado</button><button class="tab" data-tab="redacao">Redação</button>
+ </nav>
+ <section id="inicio" class="view">
+  <h2>Painel de estudos</h2>
+  <p class="muted">Seu plano semanal foi organizado para quem está começando do zero.</p>
+  <div class="panel"><div style="display:flex;justify-content:space-between;gap:10px"><b>Progresso das tarefas desta semana</b><b id="pct">0%</b></div><div class="progress"><i id="bar"></i></div><small class="muted">Marque as tarefas no cronograma para atualizar seu progresso.</small></div>
+  <div class="notice"><b>Importante:</b> esta é uma plataforma de apoio independente. Confira sempre o edital vigente, retificações, datas, requisitos e conteúdo nos canais oficiais da PM-SP e da banca organizadora.</div>
+  <h2>Disciplinas</h2><div class="grid" id="homeSubjects"></div>
+ </section>
+ <section id="cronograma" class="view hidden">
+  <h2>Seu cronograma semanal</h2><p class="muted">Cada sessão tem 2 horas: 10 min revisão, 45 min teoria, 5 min pausa, 45 min prática e 15 min correção.</p>
+  <div id="week"></div>
+  <button class="btn secondary" onclick="resetWeek()">Zerar marcações da semana</button>
+ </section>
+ <section id="materias" class="view hidden">
+  <h2>Trilha de matérias</h2><p class="muted">Comece pelos fundamentos. Avance quando conseguir explicar o assunto com suas palavras.</p>
+  <div id="subjectList" class="grid"></div>
+  <div id="lessonArea" class="panel hidden" style="margin-top:14px"></div>
+ </section>
+ <section id="simulado" class="view hidden">
+  <h2>Mini simulado</h2><p class="muted">Questões autorais de treino, não são questões oficiais da banca.</p>
+  <div id="quiz"></div><button class="btn" onclick="gradeQuiz()">Corrigir respostas</button><p id="score" aria-live="polite"></p>
+ </section>
+ <section id="redacao" class="view hidden">
+  <h2>Oficina de redação</h2><p class="muted">Treine uma redação dissertativo-argumentativa. Escreva, revise e compare com os critérios do edital.</p>
+  <div class="lesson"><b>Tema sugerido</b><p>O papel da cidadania e da prevenção na construção de uma sociedade mais segura.</p><b>Roteiro</b><ol><li>Introdução: apresente o tema e sua tese.</li><li>Desenvolvimento 1: explique um argumento.</li><li>Desenvolvimento 2: apresente outro argumento ou exemplo.</li><li>Conclusão: retome a tese e feche o raciocínio.</li></ol></div>
+  <textarea id="essay" placeholder="Escreva seu texto aqui. Seu rascunho fica salvo neste navegador."></textarea>
+  <p><small id="wordCount" class="muted">0 palavras</small></p><button class="btn" onclick="saveEssay()">Salvar rascunho</button> <span id="saved" class="muted"></span>
+ </section>
+</main>
+<footer>Material de apoio educacional. Não representa a Polícia Militar do Estado de São Paulo nem a banca organizadora. O conteúdo do concurso pode mudar conforme edital e retificações. Seus registros ficam salvos localmente neste navegador.</footer>
+<script>
+const subjects=[
+ {name:"Língua Portuguesa",icon:"📘",desc:"Interpretação, gramática e compreensão textual.",topics:["Interpretação: tema, ideia principal e inferência","Sinônimos, antônimos e sentido das palavras","Classes de palavras e pontuação","Concordância, regência, crase e colocação pronominal"],lesson:"Leia o comando da questão e volte ao trecho que sustenta a resposta. Diferencie informação explícita de inferência. Na gramática, estude uma regra por vez e resolva questões logo depois."},
+ {name:"Matemática",icon:"➗",desc:"Fundamentos, porcentagem, proporção e problemas.",topics:["Operações com inteiros e decimais","Frações, múltiplos e divisores","Razão, proporção, regra de três e porcentagem","Equações, medidas e geometria básica"],lesson:"Respeite a ordem das operações: parênteses, potências/raízes, multiplicação/divisão e adição/subtração. Para porcentagem, transforme x% em x/100. Exemplo: 15% de 200 = 0,15 × 200 = 30."},
+ {name:"História e Geografia",icon:"🌎",desc:"História geral, Brasil, geografia e atualidades.",topics:["Guerras mundiais, Guerra Fria e globalização","Brasil republicano, Era Vargas e redemocratização","Geopolítica e problemas ambientais","Geografia do Brasil: população, economia e natureza"],lesson:"Monte linhas do tempo para História e mapas mentais para Geografia. Para cada fato, registre contexto, causas, acontecimentos e consequências. Em Atualidades, confira o recorte temporal do edital."},
+ {name:"Informática",icon:"💻",desc:"Windows, editor de texto, planilhas e apresentações.",topics:["Windows: arquivos, pastas e atalhos","Word: edição, formatação e impressão","Excel: células, fórmulas e funções básicas","PowerPoint: slides, objetos e apresentação"],lesson:"Aprenda praticando. Crie uma pasta, salve e renomeie arquivos; depois pratique formatação de texto, fórmulas simples em planilhas e criação de slides. Confirme no edital a versão de software exigida."},
+ {name:"Administração Pública",icon:"⚖️",desc:"Constituição, segurança pública e legislação indicada.",topics:["Princípios da Administração Pública (art. 37 da CF)","Segurança Pública (art. 144 da CF)","Constituição Estadual nos trechos previstos no edital","Lei de Acesso à Informação e normas indicadas"],lesson:"Estude a legislação diretamente no texto oficial. Faça fichas com artigo, conceito central e palavras-chave. Não dependa apenas de resumos: o edital define exatamente quais dispositivos devem ser estudados."},
+ {name:"Redação",icon:"✍️",desc:"Texto dissertativo-argumentativo e revisão.",topics:["Compreensão do tema e planejamento","Tese e introdução","Argumentação e conectivos","Conclusão, coesão e revisão"],lesson:"Organize o texto em introdução, dois parágrafos de desenvolvimento e conclusão. Mantenha-se no tema, use argumentos explicados e revise pontuação, concordância e repetição. Confira o limite de linhas e critérios do edital."}
+];
+const schedule=[
+ ["Segunda","Português","Matemática",["Revisar o conteúdo anterior","Estudar interpretação de texto","Resolver 8 a 10 questões","Estudar operações e frações","Corrigir e registrar erros"]],
+ ["Terça","História e Geografia","Redação",["Revisar a linha do tempo","Estudar História/Geografia","Fazer questões do tema","Planejar uma redação","Escrever introdução e tese"]],
+ ["Quarta","Português","Matemática",["Revisar gramática","Estudar pontuação e classes de palavras","Resolver questões","Estudar porcentagem","Resolver problemas e corrigir"]],
+ ["Quinta","História e Geografia","Informática",["Revisar mapas e resumos","Estudar Geografia/Atualidades","Resolver questões","Praticar Windows ou Word","Anotar atalhos e conceitos"]],
+ ["Sexta","Português","Matemática",["Revisão espaçada","Estudar concordância/regência","Resolver questões","Estudar regra de três","Corrigir erros da semana"]],
+ ["Sábado","Administração Pública","Redação / simulado",["Ler legislação indicada no edital","Fazer fichas de artigos","Resolver questões","Escrever ou revisar redação","Corrigir e planejar a próxima semana"]]
+];
+const key="pmspAprova_v1";
+let state=JSON.parse(localStorage.getItem(key)||'{"checks":{},"essay":""}');
+function save(){localStorage.setItem(key,JSON.stringify(state));updateStats()}
+function updateStats(){let n=Object.values(state.checks).filter(Boolean).length,total=schedule.reduce((a,d)=>a+d[3].length,0);document.getElementById("doneCount").textContent=n;document.getElementById("pct").textContent=Math.round(n/total*100)+"%";document.getElementById("bar").style.width=(n/total*100)+"%"}
+function subjectCard(s){return `<div class="subject"><div class="ico">${s.icon}</div><div><h3>${s.name}</h3><p>${s.desc}</p><button class="btn secondary" onclick="openLesson('${s.name}')">Ver trilha</button></div></div>`}
+document.getElementById("homeSubjects").innerHTML=subjects.map(subjectCard).join("");
+document.getElementById("subjectList").innerHTML=subjects.map(subjectCard).join("");
+function openLesson(name){let s=subjects.find(x=>x.name===name);let a=document.getElementById("lessonArea");a.classList.remove("hidden");a.innerHTML=`<h2>${s.icon} ${s.name}</h2><p>${s.lesson}</p><h3>Ordem sugerida de estudo</h3><ol>${s.topics.map(t=>`<li>${t}</li>`).join("")}</ol><p class="muted">Dica: estude a teoria, faça exercícios e anote o motivo de cada erro.</p>`;a.scrollIntoView({behavior:"smooth",block:"start"})}
+document.getElementById("week").innerHTML=schedule.map((d,i)=>`<div class="day"><div class="dayhead"><h3>${d[0]}</h3><span class="muted">${d[1]} + ${d[2]}</span></div>${d[3].map((task,j)=>{let id=i+"-"+j;return `<label class="task"><input type="checkbox" ${state.checks[id]?"checked":""} onchange="state.checks['${id}']=this.checked;save()"><span>${task}</span></label>`}).join("")}</div>`).join("");
+function resetWeek(){if(confirm("Apagar as marcações do cronograma desta semana?")){state.checks={};save();location.reload()}}
+const qs=[
+ {q:"Qual é a ideia principal de um texto?",o:["Um detalhe isolado","A mensagem central desenvolvida pelo autor","A palavra mais longa","A opinião do leitor"],a:1,e:"A ideia principal resume o núcleo da mensagem do texto."},
+ {q:"Quanto é 20% de 150?",o:["15","20","30","45"],a:2,e:"20% = 0,20; 0,20 × 150 = 30."},
+ {q:"No art. 37 da Constituição Federal, qual é um princípio expresso da Administração Pública?",o:["Eficiência","Pessoalidade","Superioridade","Sigilo geral"],a:0,e:"O art. 37 menciona legalidade, impessoalidade, moralidade, publicidade e eficiência."},
+ {q:"No Excel, a referência C4 indica:",o:["Linha C, coluna 4","Célula na coluna C e linha 4","Quarta planilha","Um gráfico"],a:1,e:"A letra indica a coluna e o número indica a linha."},
+ {q:"Uma conclusão de redação deve:",o:["Introduzir assunto sem relação","Repetir o texto inteiro","Fechar o raciocínio de acordo com a tese","Apresentar dados inventados"],a:2,e:"A conclusão retoma a tese e encerra a argumentação com coerência."}
+];
+document.getElementById("quiz").innerHTML=qs.map((q,i)=>`<div class="quizq"><b>${i+1}. ${q.q}</b>${q.o.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}) ${o}</label>`).join("")}<div id="f${i}" class="feedback"></div></div>`).join("");
+function gradeQuiz(){let score=0;qs.forEach((q,i)=>{let v=document.querySelector(`input[name="q${i}"]:checked`);let f=document.getElementById("f"+i);if(v&&Number(v.value)===q.a){score++;f.className="feedback good";f.textContent="Correto! "+q.e}else{f.className="feedback bad";f.textContent="Resposta: "+String.fromCharCode(65+q.a)+". "+q.e}});document.getElementById("score").innerHTML=`<b>Resultado: ${score} de ${qs.length} acertos (${Math.round(score/qs.length*100)}%).</b>`}
+const essay=document.getElementById("essay");essay.value=state.essay||"";function countWords(){let n=essay.value.trim()?essay.value.trim().split(/\s+/).length:0;document.getElementById("wordCount").textContent=n+" palavras"}essay.addEventListener("input",()=>{state.essay=essay.value;save();countWords()});countWords();
+function saveEssay(){state.essay=essay.value;save();document.getElementById("saved").textContent="Rascunho salvo neste navegador."}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".view").forEach(x=>x.classList.toggle("hidden",x.id!==b.dataset.tab));window.scrollTo({top:0,behavior:"smooth"})}));
+updateStats();
+</script>
+</body></html>
